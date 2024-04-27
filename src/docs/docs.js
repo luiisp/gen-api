@@ -1,4 +1,4 @@
-const options = {
+export const options = {
     definition: {
       openapi: "3.1.0",
       info: {
@@ -21,8 +21,7 @@ const options = {
           url: "http://localhost:3000",
         },
       ],
+      
     },
-    apis: ["./routes/*.js"],
+    apis: ["../routes/*.js"],
   };
-
-export default options;

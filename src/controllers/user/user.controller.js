@@ -1,6 +1,7 @@
 import { createUser } from "../../repositorys/userRepositorys.js";
 import { userValidation } from "../../validations/user/user.validation.js";
 import { getAllUsers } from "../../repositorys/userRepositorys.js";
+import {getUserById} from "../../repositorys/userRepositorys.js";
 import bcrypt from 'bcrypt';
 
 export const createUserController = async (req, res) => {
@@ -25,3 +26,13 @@ export const getAllUsersController = async (req, res) => {
     }
 
 };
+
+export const getUserByIdController = async (req, res) => {
+    try {
+        const user = await getUserById(req.params.id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+
+}

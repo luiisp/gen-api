@@ -11,8 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Pedro Luis Dias",
+  "license": "MIT",
   "dependencies": {
     "@prisma/client": "^5.13.0",
     "bcrypt": "^5.1.1",
