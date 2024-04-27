@@ -1,11 +1,14 @@
-const express = require('express');
-const cors = require('cors');
-bodyParser = require("body-parser"),
-swaggerJsdoc = require("swagger-jsdoc"),
-swaggerUi = require("swagger-ui-express");
-const dotenv = require('dotenv');
+import express from 'express';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import options from './docs/docs.js';
+import routes from './routes/index.js';
+
 const app = express();
-const options = require('./docs/docs.js');
+
 dotenv.config("../");
 
 app.use(express.json());
@@ -19,9 +22,9 @@ const specs = swaggerJsdoc(options);
     swaggerUi.setup(specs)
   );
 
-
+routes(app);
 app.get('/ping', (req, res) => {
     res.status(200).json({ message: 'pong' });
 });
 
-module.exports = app;
+export default app;
