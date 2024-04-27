@@ -1,10 +1,11 @@
 import * as yup from 'yup';
 
-export const createUserValidation = yup.object({
-    name: yup.string().required().min(3),
-    email: yup.string().email().required(),
-    password: yup.string().required().min(6),
+export const userValidation = yup.object({
+    name: yup.string().required().min(3).max(30),
+    username: yup.string().required().min(3).max(30),
+    email: yup.string().email().required().email(),
+    password: yup.string().required().min(6).max(20),
     phone: yup.string().nullable(true),
     birthDate: yup.date().nullable(true),
-    bio: yup.string().nullable(true).default('This is a bio.'),
+    bio: yup.string().nullable(true),
 })

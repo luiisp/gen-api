@@ -5,11 +5,12 @@ export const createUser = async (data) => {
         data,
         select: {
             id: true,
+            username: true,
             name: true,
             email: true,
             password: false,
-            created_at: true,
-            updated_at: true,
+            createdAt:true,
+            updatedAt: true,
             phone: true,
             birthDate: true,
             bio: true,
@@ -17,4 +18,26 @@ export const createUser = async (data) => {
     });
 
     return user;
+};
+
+
+export const getAllUsers = async () => {
+    const users = await prismaClient.user.findMany({
+        select: {
+            id: true,
+            name: true,
+            username: true,
+            email: true,
+            createdAt: true,
+            updatedAt: true,
+            password: false,
+            phone: true,
+            birthDate: true,
+            bio: true,
+        }
+    });
+
+    return users;
+
+
 };
