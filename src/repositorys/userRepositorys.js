@@ -21,27 +21,32 @@ export const createUser = async (data) => {
 };
 
 
-export const getAllUsers = async () => {
-    const users = await prismaClient.user.findMany({
-        select: {
-            id: true,
-            name: true,
-            username: true,
-            email: true,
-            createdAt: true,
-            updatedAt: true,
-            password: false,
-            phone: true,
-            birthDate: true,
-            bio: true,
-        }
-    });
+export const getUsers = async (skip,take) => {
+    const [users, total] = await prismaClient.$transaction([
+        prismaClient.user.findMany({
+            select: {
+                id: true,
+                username: true,
+                name: true,
+                password: false,
+                email: true,
+                createdAt: true,
+                updatedAt: true,
+                phone: true,
+                birthDate: true,
+                bio: true,
+            },
+            skip,
+            take
+        }), 
+        prismaClient.user.count()
+    ]);
 
-    return users;
-
-
+    const totalPage = Math.ceil(total / take);
+    return {
+        totalPage, total, users
+    };
 };
-
 
 export const getUserById = async (id) => {
     const user = await prismaClient.user.findUnique({

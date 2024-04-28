@@ -1,4 +1,4 @@
-import { createUser, getAllUsers, getUserById, updateUserCredentials } from "../../repositorys/userRepositorys.js";
+import { createUser, getUsers, getUserById, updateUserCredentials } from "../../repositorys/userRepositorys.js";
 import { userValidation } from "../../validations/user/user.validation.js";
 import bcrypt from 'bcrypt';
 
@@ -17,7 +17,9 @@ export const createUserController = async (req, res) => {
 
 export const getAllUsersController = async (req, res) => {
     try {
-        const users = await getAllUsers();
+        const skip = req.query.skip ? Number(req.query.skip) : 0;
+        const take = req.query.take ? Number(req.query.take) : 10;
+        const users = await getUsers(skip, take);
         res.status(200).json(users);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -27,7 +29,7 @@ export const getAllUsersController = async (req, res) => {
 
 export const getUserByIdController = async (req, res) => {
     try {
-        const user = await getUserById(req.params.id);
+        const user = await getUserById(Number(req.params.id));
         res.status(200).json(user);
     } catch (error) {
         res.status(400).json({ error: error.message });
