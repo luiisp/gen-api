@@ -1,7 +1,5 @@
-import { createUser } from "../../repositorys/userRepositorys.js";
+import { createUser, getAllUsers, getUserById, updateUserCredentials } from "../../repositorys/userRepositorys.js";
 import { userValidation } from "../../validations/user/user.validation.js";
-import { getAllUsers } from "../../repositorys/userRepositorys.js";
-import {getUserById} from "../../repositorys/userRepositorys.js";
 import bcrypt from 'bcrypt';
 
 export const createUserController = async (req, res) => {
@@ -35,4 +33,16 @@ export const getUserByIdController = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 
+}
+
+export const updateUserCredentialsController = async (req, res) => {
+    try {
+        await userValidation.validate(req.body);
+        const hashPassowrd = await bcrypt.hash(req.body.password, 10)
+        req.body.password = hashPassowrd;
+        const user = await updateUserCredentials(Number(req.params.id), req.body);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 }

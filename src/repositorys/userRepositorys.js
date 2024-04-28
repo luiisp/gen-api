@@ -48,6 +48,7 @@ export const getUserById = async (id) => {
         where: {
             id: parseInt(id)
         },
+        data,
         select: {
             id: true,
             name: true,
@@ -64,3 +65,27 @@ export const getUserById = async (id) => {
 
     return user;
 };
+
+
+export const updateUserCredentials = async (id, data) => {
+    const user = await prismaClient.user.update({
+        where: {
+            id: parseInt(id)
+        },
+        data,
+        select: {
+            id: true,
+            name: true,
+            username: true,
+            email: true,
+            createdAt: true,
+            updatedAt: true,
+            password: false,
+            phone: true,
+            birthDate: true,
+            bio: true,
+        }
+    });
+
+    return user;
+}
