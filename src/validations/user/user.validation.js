@@ -9,3 +9,14 @@ export const userValidation = yup.object({
     birthDate: yup.date().nullable(true),
     bio: yup.string().nullable(true).max(100),
 })
+
+
+export const userUpdateValidation = yup.object({
+    name: yup.string().min(3).max(30),
+    username: yup.string().min(3).max(30),
+    email: yup.string().email(),
+    password: yup.string().min(6).max(20),
+    phone: yup.string().nullable(true),
+    birthDate: yup.date().nullable(true),
+    bio: yup.string().nullable(true).max(100),
+});

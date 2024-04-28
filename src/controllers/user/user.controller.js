@@ -1,5 +1,5 @@
 import { createUser, getUsers, getUserById, updateUserCredentials } from "../../repositorys/userRepositorys.js";
-import { userValidation } from "../../validations/user/user.validation.js";
+import { userValidation, userUpdateValidation } from "../../validations/user/user.validation.js";
 import bcrypt from 'bcrypt';
 
 export const createUserController = async (req, res) => {
@@ -30,8 +30,9 @@ export const getAllUsersController = async (req, res) => {
 export const getUserByIdController = async (req, res) => {
     try {
         const user = await getUserById(Number(req.params.id));
-        res.status(200).json(user);
+        user ? res.status(200).json(user) : res.status(404).json({ error: "User not found" });
     } catch (error) {
+        console.log(error);
         res.status(400).json({ error: error.message });
     }
 
@@ -39,12 +40,13 @@ export const getUserByIdController = async (req, res) => {
 
 export const updateUserCredentialsController = async (req, res) => {
     try {
-        await userValidation.validate(req.body);
-        const hashPassowrd = await bcrypt.hash(req.body.password, 10)
-        req.body.password = hashPassowrd;
+        await userUpdateValidation.validate(req.body);
+
+        req.body.password? req.body.password = await bcrypt.hash(req.body.password, 10): null;
         const user = await updateUserCredentials(Number(req.params.id), req.body);
         res.status(200).json(user);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 }
+

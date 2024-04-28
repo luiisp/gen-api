@@ -49,11 +49,11 @@ export const getUsers = async (skip,take) => {
 };
 
 export const getUserById = async (id) => {
+    console.log(id);
     const user = await prismaClient.user.findUnique({
         where: {
-            id: parseInt(id)
+            id: id
         },
-        data,
         select: {
             id: true,
             name: true,
