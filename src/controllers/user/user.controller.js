@@ -1,8 +1,7 @@
-import { createUser, getUsers, getUserById, updateUserCredentials, deleteUser } from "../../repositorys/userRepositorys.js";
-import { userValidation, userUpdateValidation } from "../../validations/user/user.validation.js";
-import bcrypt from 'bcrypt';
-
-export const createUserController = async (req, res) => {
+const { createUser, getUsers, getUserById, updateUserCredentials, deleteUser } = require("../../repositorys/userRepositorys.js");
+const { userValidation, userUpdateValidation } = require("../../validations/user/user.validation.js");
+const bcrypt = require('bcrypt');
+const createUserController = async (req, res) => {
     try {
         await userValidation.validate(req.body);
 
@@ -15,7 +14,7 @@ export const createUserController = async (req, res) => {
     }
 };
 
-export const getAllUsersController = async (req, res) => {
+const getAllUsersController = async (req, res) => {
     try {
         const skip = req.query.skip ? Number(req.query.skip) : 0;
         const take = req.query.take ? Number(req.query.take) : 10;
@@ -27,7 +26,7 @@ export const getAllUsersController = async (req, res) => {
 
 };
 
-export const getUserByIdController = async (req, res) => {
+const getUserByIdController = async (req, res) => {
     try {
         const user = await getUserById(Number(req.params.id));
         user ? res.status(200).json(user) : res.status(404).json({ error: "User not found" });
@@ -38,7 +37,7 @@ export const getUserByIdController = async (req, res) => {
 
 }
 
-export const updateUserCredentialsController = async (req, res) => {
+const updateUserCredentialsController = async (req, res) => {
     try {
         await userUpdateValidation.validate(req.body);
 
@@ -51,7 +50,7 @@ export const updateUserCredentialsController = async (req, res) => {
 }
 
 
-export const deleteUserController = async (req, res) => {
+const deleteUserController = async (req, res) => {
     try {
         const user = await deleteUser(Number(req.params.id));
         res.status(200).json(user);
@@ -59,3 +58,12 @@ export const deleteUserController = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 }
+
+
+module.exports = {
+    createUserController,
+    getAllUsersController,
+    getUserByIdController,
+    updateUserCredentialsController,
+    deleteUserController
+};

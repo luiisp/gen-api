@@ -1,5 +1,6 @@
 
-export const pingTest =  (req, res) => {
+const pingTest =  (req, res) => {
     res.status(200).json({ message: 'pong' });
 }
 
+module.exports = { pingTest };

@@ -1,6 +1,5 @@
-import * as yup from 'yup';
-
-export const userValidation = yup.object({
+const yup = require('yup');
+const userValidation = yup.object({
     name: yup.string().required().min(3).max(30),
     username: yup.string().required().min(3).max(30),
     email: yup.string().required().email(),
@@ -11,7 +10,7 @@ export const userValidation = yup.object({
 })
 
 
-export const userUpdateValidation = yup.object({
+const userUpdateValidation = yup.object({
     name: yup.string().min(3).max(30),
     username: yup.string().min(3).max(30),
     email: yup.string().email(),
@@ -20,3 +19,5 @@ export const userUpdateValidation = yup.object({
     birthDate: yup.date().nullable(true),
     bio: yup.string().nullable(true).max(100),
 });
+
+module.exports = { userValidation, userUpdateValidation };

@@ -1,6 +1,5 @@
-import {prismaClient} from "../utils/prisma.js"
-
-export const createUser = async (data) => {
+const { prismaClient } = require("../utils/prisma.js");
+const createUser = async (data) => {
     const user = await prismaClient.user.create({
         data,
         select: {
@@ -21,7 +20,7 @@ export const createUser = async (data) => {
 };
 
 
-export const getUsers = async (skip,take) => {
+const getUsers = async (skip,take) => {
     const [users, total] = await prismaClient.$transaction([
         prismaClient.user.findMany({
             select: {
@@ -48,7 +47,7 @@ export const getUsers = async (skip,take) => {
     };
 };
 
-export const getUserById = async (id) => {
+const getUserById = async (id) => {
     console.log(id);
     const user = await prismaClient.user.findUnique({
         where: {
@@ -72,7 +71,7 @@ export const getUserById = async (id) => {
 };
 
 
-export const updateUserCredentials = async (id, data) => {
+const updateUserCredentials = async (id, data) => {
     const user = await prismaClient.user.update({
         where: {
             id: parseInt(id)
@@ -95,7 +94,7 @@ export const updateUserCredentials = async (id, data) => {
     return user;
 }
 
-export const deleteUser = async (id) => {
+const deleteUser = async (id) => {
     const user = await prismaClient.user.delete({
         where: {
             id: parseInt(id)
@@ -116,3 +115,11 @@ export const deleteUser = async (id) => {
 
     return user;
 }
+
+module.exports = {
+    createUser,
+    getUsers,
+    getUserById,
+    updateUserCredentials,
+    deleteUser
+};

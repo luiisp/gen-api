@@ -1,4 +1,4 @@
-export const options = {
+const options = {
     definition: {
       openapi: "3.1.0",
       info: {
@@ -25,3 +25,6 @@ export const options = {
     },
     apis: ["../routes/*.js"],
   };
+
+
+  module.exports = { options };
