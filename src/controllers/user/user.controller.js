@@ -1,4 +1,4 @@
-import { createUser, getUsers, getUserById, updateUserCredentials } from "../../repositorys/userRepositorys.js";
+import { createUser, getUsers, getUserById, updateUserCredentials, deleteUser } from "../../repositorys/userRepositorys.js";
 import { userValidation, userUpdateValidation } from "../../validations/user/user.validation.js";
 import bcrypt from 'bcrypt';
 
@@ -50,3 +50,12 @@ export const updateUserCredentialsController = async (req, res) => {
     }
 }
 
+
+export const deleteUserController = async (req, res) => {
+    try {
+        const user = await deleteUser(Number(req.params.id));
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}

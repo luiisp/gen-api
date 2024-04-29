@@ -94,3 +94,25 @@ export const updateUserCredentials = async (id, data) => {
 
     return user;
 }
+
+export const deleteUser = async (id) => {
+    const user = await prismaClient.user.delete({
+        where: {
+            id: parseInt(id)
+        },
+        select: {
+            id: true,
+            name: true,
+            username: true,
+            email: true,
+            createdAt: true,
+            updatedAt: true,
+            password: false,
+            phone: true,
+            birthDate: true,
+            bio: false,
+        }
+    });
+
+    return user;
+}
