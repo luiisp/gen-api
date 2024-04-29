@@ -1,15 +1,16 @@
 {
   "name": "gen-api",
-  "repository": "https://github.com/luiisp/gen-api",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luiisp/gen-api"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js",
-    "test": "node --test test/",
-    "testWatch": "nodemon --exec --test test/"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "Pedro Luis Dias",
