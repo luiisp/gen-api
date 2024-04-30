@@ -10,7 +10,7 @@ const createUserController = async (req, res) => {
         const user = await createUser(req.body);
         res.status(201).json(user);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500);
     }
 };
 
@@ -21,7 +21,7 @@ const getAllUsersController = async (req, res) => {
         const users = await getUsers(skip, take);
         res.status(200).json(users);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500);
     }
 
 };
