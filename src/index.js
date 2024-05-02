@@ -15,4 +15,4 @@ app.use(bodyParser.json());
 
 
 routes(app);
-module.exports = app, secret;
+module.exports = {app};
