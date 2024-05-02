@@ -1,6 +1,8 @@
 const { createUser, getUsers, getUserById, updateUserCredentials, deleteUser } = require("../../repositorys/userRepositorys.js");
 const { userValidation, userUpdateValidation } = require("../../validations/user/user.validation.js");
+const {jwtMiddleware} = require('../../middleware/middlewares.js')
 const bcrypt = require('bcrypt');
+
 const createUserController = async (req, res) => {
     try {
         await userValidation.validate(req.body);
