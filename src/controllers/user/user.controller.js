@@ -3,6 +3,7 @@ const { userValidation, userUpdateValidation } = require("../../validations/user
 const {generateAcessToken} = require("../../repositorys/jwt/jwtRepositorys.js")
 const bcrypt = require('bcrypt');
 
+
 const createUserController = async (req, res) => {
     try {
         console.log('new user create')
@@ -15,7 +16,6 @@ const createUserController = async (req, res) => {
         }
 
         const jwtRes = generateAcessToken(user.id);
-        
         user.jwt = jwtRes;
 
         res.status(201).json(user);

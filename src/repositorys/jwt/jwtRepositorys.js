@@ -4,11 +4,7 @@ const expiresJwtTime = process.env.EXPIRESTOKEN || '1h';
 const expiresRefreshTokenTime = process.env.EXPIRESREFRESHTOKEN || '1d'
 const {userExists} = require('../userRepositorys.js')
 
-
-
-
-
-const generateAcessToken = (userId) => {
+const getAcessToken = (userId) => {
     return {
         acessToken:{
          token: jwt.sign({ userId:userId }, secret, { expiresIn: expiresJwtTime }),
@@ -23,12 +19,6 @@ const generateAcessToken = (userId) => {
     
 };
 
-
-
-const generateRefreshToken = (userId) => {
-        return jwt.sign({ userId }, secret);
-}
-
 const verifyToken = (token) => {
     try {
         const decoded = jwt.verify(token, secret);
@@ -40,8 +30,7 @@ const verifyToken = (token) => {
 }
 
 module.exports = {
-    generateAcessToken,
-    generateRefreshToken,
+    getAcessToken,
     verifyToken
 }
 
