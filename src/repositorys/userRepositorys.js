@@ -1,5 +1,6 @@
 const { prismaClient } = require("../utils/prisma.js");
 const createUser = async (data) => {
+    console.log('prisma new user')
     const user = await prismaClient.user.create({
         data,
         select: {
@@ -14,7 +15,9 @@ const createUser = async (data) => {
             birthDate: true,
             bio: true,
         }
-    });
+    }); 
+
+    console.log(`prisma new user ${user}`);
 
     return user;
 };
@@ -45,6 +48,17 @@ const getUsers = async (skip,take) => {
     return {
         totalPage, total, users
     };
+};
+
+const userExists = async (id) => {
+
+    const user = await prismaClient.user.findUnique({
+        where: {
+            id: id
+        }
+    });
+    return user ? true : false;
+
 };
 
 const getUserById = async (id) => {
@@ -121,5 +135,6 @@ module.exports = {
     getUsers,
     getUserById,
     updateUserCredentials,
-    deleteUser
+    deleteUser,
+    userExists
 };

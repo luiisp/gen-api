@@ -1,15 +1,23 @@
 const { createUser, getUsers, getUserById, updateUserCredentials, deleteUser } = require("../../repositorys/userRepositorys.js");
 const { userValidation, userUpdateValidation } = require("../../validations/user/user.validation.js");
-const {jwtMiddleware} = require('../../middleware/middlewares.js')
+const {generateAcessToken} = require("../../repositorys/jwt/jwtRepositorys.js")
 const bcrypt = require('bcrypt');
 
 const createUserController = async (req, res) => {
     try {
-        await userValidation.validate(req.body);
-
+        console.log('new user create')
+        await userValidation.validate(req.body);       
         const hashPassowrd = await bcrypt.hash(req.body.password, 10)
         req.body.password = hashPassowrd;
         const user = await createUser(req.body);
+        if (!user) {
+            res.status(409).json({ error: "User already exists" });
+        }
+
+        const jwtRes = generateAcessToken(user.id);
+        
+        user.jwt = jwtRes;
+
         res.status(201).json(user);
     } catch (error) {
         res.status(500);
