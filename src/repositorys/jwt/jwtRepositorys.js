@@ -7,12 +7,12 @@ const {userExists} = require('../userRepositorys.js')
 const getAcessToken = (userId) => {
     return {
         acessToken:{
-         token: jwt.sign({ userId:userId }, secret, { expiresIn: expiresJwtTime }),
+         token: jwt.sign({ userId:userId, tokenType:"acess" }, secret, { expiresIn: expiresJwtTime }),
          expiresIn: expiresJwtTime   
         },
 
         refreshToken:{
-            token: jwt.sign({ userId:userId }, secret, { expiresIn: expiresRefreshTokenTime }),
+            token: jwt.sign({ userId:userId, tokenType:"refresh" }, secret, { expiresIn: expiresRefreshTokenTime }),
             expiresIn: expiresRefreshTokenTime
         }
     }
@@ -29,8 +29,22 @@ const verifyToken = (token) => {
     }
 }
 
+const verifyAndRefreshToken = (token,id) => {
+    try {
+        const tryDecode = verifyToken(token);
+        if(!tryDecode) return null;
+        const userid = tryDecode.userId;
+        if(userid !== id || tryDecode.tokenType !== "refresh") return null;
+        return getAcessToken(userid);
+
+    } catch (error) {
+        return null;
+    }
+}
+
 module.exports = {
     getAcessToken,
-    verifyToken
+    verifyToken,
+    verifyAndRefreshToken
 }
 

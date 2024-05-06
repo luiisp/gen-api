@@ -3,7 +3,8 @@ const {
     getAllUsersController,
     deleteUserController,
     getUserByIdController,
-    updateUserCredentialsController
+    updateUserCredentialsController,
+    userLoginController
 } = require("../controllers/user/user.controller.js");
 const { authenticateToken, userOwnerOnly } = require("../middleware/middlewares.js");
 const {refreshTokenController} = require('../controllers/jwt/jwt.controller.js');
@@ -15,6 +16,7 @@ const userRoutes = (app) => {
     app.get('/user/:id',authenticateToken, getUserByIdController);
     app.put('/user/:id',authenticateToken,userOwnerOnly, updateUserCredentialsController);
     app.post('/user/refreshToken/:userId', refreshTokenController);
+    app.post('/user/login', userLoginController)
     app.delete('/user/dangerzone/:id',authenticateToken,userOwnerOnly, deleteUserController);
 };
 
