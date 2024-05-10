@@ -70,15 +70,19 @@ server.js
 
 
 > Validação de dados com Yup
+
 ![image](https://github.com/luiisp/gen-api/assets/115284250/16cb99d7-bf8d-4ec8-b4b7-f036db25c3ce)
 
 > Cadastro de usuários
+
 ![image](https://github.com/luiisp/gen-api/assets/115284250/e477988d-6668-4469-b755-f3bc05d28175)
 
 > Autenticação de usuários com JWT
+
 ![image](https://github.com/luiisp/gen-api/assets/115284250/1909a1ce-b477-48f3-93a7-525c913c509e)
 
 > Listagem de usuários + Paginação
+
 ![image](https://github.com/luiisp/gen-api/assets/115284250/90dbc232-6ee8-4adc-9340-782e340888ce)
 
 
