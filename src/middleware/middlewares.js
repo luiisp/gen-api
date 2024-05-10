@@ -10,11 +10,13 @@ const userOwnerOnly = (req, res, next) => {
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  if (!authHeader || !token || token.tokenType !== "acess") {
+  console.log(token);
+  if (!authHeader || !token) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   const result = verifyToken(token);
-  if (!result) {
+  console.log(result);
+  if (!result ||  result.tokenType !== "acess") {
     return res.status(403).json({ error: "Forbidden" });
   }
   req.userId = result.userId;

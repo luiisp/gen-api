@@ -15,11 +15,11 @@ const bcrypt = require("bcrypt");
 
 const createUserController = async (req, res) => {
   try {
-    console.log("new user create");
     await userValidation.validate(req.body);
     const hashPassowrd = await bcrypt.hash(req.body.password, 10);
     req.body.password = hashPassowrd;
     const user = await createUser(req.body);
+    console.log(user);
     if (!user) {
       res.status(409).json({ error: "User already exists" });
     }
