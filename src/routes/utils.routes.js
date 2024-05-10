@@ -1,15 +1,14 @@
 const { pingTest } = require('../controllers/utils/utils.controller.js');
 const { options } = require('../docs/docs.js');
 const swaggerUi = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerFile = require('../docs/swagger_output.json');
 
-const specs = swaggerJsdoc(options);
 
 const utilsRoutes = (app) => {
     app.use(
         "/docs",
         swaggerUi.serve,
-        swaggerUi.setup(specs)
+        swaggerUi.setup(swaggerFile)
     );
     app.get('/ping', pingTest);
 };

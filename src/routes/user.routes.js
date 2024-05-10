@@ -1,3 +1,4 @@
+
 const {
     createUserController,
     getAllUsersController,
@@ -6,8 +7,9 @@ const {
     updateUserCredentialsController,
     userLoginController
 } = require("../controllers/user/user.controller.js");
-const { authenticateToken, userOwnerOnly } = require("../middleware/middlewares.js");
+const { authenticateToken, userOwnerOnly } = require("../middlewares/middlewares.js");
 const {refreshTokenController} = require('../controllers/jwt/jwt.controller.js');
+
 
 
 const userRoutes = (app) => {
