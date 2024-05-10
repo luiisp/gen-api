@@ -1,5 +1,5 @@
 ## Gen Api 🪄🧶
-![GitHub](https://img.shields.io/github/license/luiisp/gen-api)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub last commit](https://img.shields.io/github/last-commit/luiisp/gen-api)
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/luiisp/gen-api/blob/main/readme.en.md)
 
